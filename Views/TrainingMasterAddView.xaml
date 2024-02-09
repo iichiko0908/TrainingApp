@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Views.TrainingMasterAddView"
+             xmlns:vm="clr-namespace:TrainingApp.ViewModels"
+             Title="トレーニングマスタ登録" Shell.BackgroundColor="LightBlue">
+    <ContentPage.BindingContext>
+        <vm:TrainingMasterAddViewModel/>
+    </ContentPage.BindingContext>
+    <!-- 戻るコマンド -->
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackNavigationTrainingMasterCommand}"  IconOverride="back.png" TextOverride="＜" />
+    </Shell.BackButtonBehavior>
+    <VerticalStackLayout>
+        <Grid Padding="5" />
+        <Label Text="部位"  />
+        <Picker Title="部位を選択" SelectedItem="{Binding Part}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>胸</x:String>
+                    <x:String>背中</x:String>
+                    <x:String>肩</x:String>
+                    <x:String>腕</x:String>
+                    <x:String>脚</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Label Text="種目" />
+        <Entry Text="{Binding EventName}" />
+        <Label Text="並び順" />
+        <Entry Text="{Binding Order}" Keyboard="Numeric" />
+        <Grid Padding="10"/>
+        <Button Text="登録" Command="{Binding CreateDBTrainingMasterCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

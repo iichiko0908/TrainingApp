@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Views.TrainingRecordAddView"
+             xmlns:vm="clr-namespace:TrainingApp.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="this"
+             Title="トレーニング記録登録">
+    <ContentPage.BindingContext>
+        <vm:TrainingRecordAddViewModel />
+    </ContentPage.BindingContext>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding NavigationTrainingListViewCommand}" TextOverride="＜" />
+    </Shell.BackButtonBehavior>
+    <VerticalStackLayout>
+        <CollectionView Header="{Binding TrainingMaster}" Footer="{Binding .}" ItemsSource="{Binding TrainingRecordListCollection}">
+            <CollectionView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="LightGray">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding EventName}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.HeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems SwipeBehaviorOnInvoked="Close">
+                            <SwipeItem Text="削除" BackgroundColor="Red" 
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}, Path=RowDeleteTrainingRecordListCommand}" 
+                                       CommandParameter="{Binding .}"/>
+                        </SwipeView.RightItems>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding SetNumber}"/>
+
+                            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Weight, TargetNullValue=''}" Keyboard="Numeric">
+                                <!--<Entry.Behaviors>
+                                    <toolkit:EventToCommandBehavior EventName="TextChanged" Command="{Binding Source={x:Reference this}, Path=BindingContext.UpdateEntryWeightTrainingRecordList}" CommandParameter="{Binding .}" />
+                                </Entry.Behaviors>-->
+                            </Entry>
+                            <Label Grid.Row="0" Grid.Column="2" Text="kg"/>
+                            <Entry Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes, TargetNullValue=''}" Keyboard="Numeric"/>
+                            <Label Grid.Row="0" Grid.Column="4" Text="回"/>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.FooterTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <Button Text="行追加" HorizontalOptions="End" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}, Path=RowAddTrainingRecordListCommand }" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.FooterTemplate>
+        </CollectionView>
+        <Button Text="登録" Command="{Binding InsertUpdateTrainingRecordListCommand}" HorizontalOptions="Center" WidthRequest="100" />
+    </VerticalStackLayout>
+</ContentPage>

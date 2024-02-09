@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Controls.TrainingListCollectionViewControl">
+    <CollectionView Header="{Binding .}" Footer="{Binding .}" >
+        <CollectionView.HeaderTemplate>
+            <DataTemplate>
+                <Grid BackgroundColor="LightBlue">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding HeaderName}" Padding="10,0,0,0" />
+                </Grid>
+            </DataTemplate>
+        </CollectionView.HeaderTemplate>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid Padding="20,10,20,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" />
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        <CollectionView.FooterTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Button Text="追加" HorizontalOptions="Start"/>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.FooterTemplate>
+    </CollectionView>
+</ContentView>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Views.TrainingDateTimeSelectView"
+             xmlns:vm="clr-namespace:TrainingApp.ViewModels"
+             Title="トレーニング日付選択">
+    <ContentPage.BindingContext>
+        <vm:TrainingDateTimeSelectViewModel />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <Label Text="日付を選択" HorizontalOptions="Center" Style="{StaticResource Headline}" />
+        <DatePicker Format="yyyy/MM/dd(ddd)" Date="{Binding TraningDateTime}" />
+        <Grid Padding="10"></Grid>
+        <Button Text="次へ" Command="{Binding NavigationTrainingListCommand}" />
+    </VerticalStackLayout>
+</ContentPage>

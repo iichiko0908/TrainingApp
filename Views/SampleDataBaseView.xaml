@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Views.SampleDataBaseView"
+             xmlns:vm="clr-namespace:TrainingApp.ViewModels"
+             Title="SampleDataBase">
+    <ContentPage.BindingContext>
+        <vm:SampleDataBaseViewModel />
+    </ContentPage.BindingContext>
+    
+    <VerticalStackLayout>
+        <Label Text="種目マスタ登録" Style="{StaticResource Headline}"/>
+        <Label Text="曜日" Style="{StaticResource SubHeadline}"/>
+        <Picker x:Name="picWeek" Title="曜日を選択してください" SelectedItem="{Binding WeekName}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>月曜日</x:String>
+                    <x:String>火曜日</x:String>
+                    <x:String>水曜日</x:String>
+                    <x:String>木曜日</x:String>
+                    <x:String>金曜日</x:String>
+                    <x:String>土曜日</x:String>
+                    <x:String>日曜日</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Label Text="種目名" Style="{StaticResource SubHeadline}"/>
+        <Entry x:Name="txtEvent" MaxLength="100" ClearButtonVisibility="WhileEditing" Text="{Binding EventName}" />
+        <Button Text="登録" Command="{Binding AddEventMasterCommand}" />
+        <Grid Padding="10"></Grid>
+
+        <Label Text="種目マスタ一覧" Style="{StaticResource SubHeadline}"/>
+        <CollectionView x:Name="colViewEventMaster" SelectionMode="Single" ItemsSource="{Binding EventMasterList}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                <SwipeItem Text="Delete" BackgroundColor="Red" 
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SampleDataBaseViewModel}}, Path=RemoveEventMasterCommand}" 
+                                           CommandParameter="{Binding}"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Grid  Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="0" Text="{Binding WeekName}" />
+                            <Label Grid.Column="1" Grid.Row="0" Text="{Binding EventName}" />
+                            <Label Grid.Column="2" Grid.Row="0" Text="{Binding Created}" />
+                            <Label Grid.Column="2" Grid.Row="1" Text="{Binding Modified}" />
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

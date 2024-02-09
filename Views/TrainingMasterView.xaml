@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Views.TrainingMasterView"
+             xmlns:vm="clr-namespace:TrainingApp.ViewModels"
+             Title="トレーニングマスタ一覧">
+    <ContentPage.BindingContext>
+        <vm:TrainingMasterViewModel />
+    </ContentPage.BindingContext>
+    <!-- 戻るコマンド -->
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding NavigationTrainingListViewCommand}"  IconOverride="back.png" TextOverride="＜" />
+    </Shell.BackButtonBehavior>
+    
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="50"/>
+                <RowDefinition  Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Text="種目追加" Command="{Binding NavigationTrainingMasterAddCommand}" HorizontalOptions="End" Padding="10,0,10,0" />
+            <CollectionView Grid.Row="1" ItemsSource="{Binding TrainingMasterGroup}" IsGrouped="True" 
+                        SelectionMode="Single" >
+            <!--SelectionChangedCommand="{Binding NavigationTrainingTrainingRecordCommand}"-->
+            <!--SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}"-->
+
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Grid BackgroundColor="LightBlue">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Part}" Padding="10,0,0,0" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems SwipeBehaviorOnInvoked="Close">
+                            <SwipeItem Text="削除" BackgroundColor="Red" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingMasterViewModel}}, Path=DeleteDBTrainingMasterCommand}" 
+                                        CommandParameter="{Binding .}" />
+                            <SwipeItem Text="編集" BackgroundColor="Blue" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingMasterViewModel}}, Path=NavigationUpdateTrainingMasterCommand}" 
+                                        CommandParameter="{Binding .}" />
+                        </SwipeView.RightItems>
+                        <Frame CornerRadius="0" Padding="0,10,0,10">
+                            <Frame.GestureRecognizers>
+                                <!--タップコマンド-->
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingMasterViewModel}}, Path=NavigationTrainingTrainingRecordCommand}"
+                                                        CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+
+                            <Grid Padding="20,10,20,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding EventName}" />
+                            </Grid>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>

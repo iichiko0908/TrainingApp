@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Views.TrainingRecordListView"
+             xmlns:vm="clr-namespace:TrainingApp.ViewModels"
+             Title="{Binding TrainingDateTimeSelectedString }">
+    <ContentPage.BindingContext>
+        <vm:TrainingRecordListViewModel />
+    </ContentPage.BindingContext>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding NavigationTrainingDateTimeSelectViewCommand}" TextOverride="＜"/>
+    </Shell.BackButtonBehavior>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="トレーニング記録一覧" Style="{StaticResource SubHeadline}"/>
+
+            <CollectionView ItemsSource="{Binding TrainingRecordListGroup}" IsGrouped="True">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="LightGray" Padding="3" CornerRadius="0" BorderColor="Gray" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="160"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding EventName}" Grid.Row="0" Grid.ColumnSpan="3" FontSize="16"/>
+                                <Label Text="セット" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center"/>
+                                <Label Text="重さ" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+                                <Label Text="回数" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="0" Padding="0,10,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding SetNumber}" HorizontalOptions="Center" Padding="5,0,0,0"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Weight}" HorizontalOptions="Center"/>
+                                <Label Grid.Row="0" Grid.Column="2" Text="kg"/>
+                                <Label Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes}" HorizontalOptions="Center"/>
+                                <Label Grid.Row="0" Grid.Column="4" Text="回"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.GroupFooterTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Button Text="記録追加" HorizontalOptions="End"  Padding="10,0,10,0"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordListViewModel}}, Path=NavigationTrainingRecordAddViewCommand}" 
+                                    CommandParameter="{Binding TrainingMasterId}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.GroupFooterTemplate>
+            </CollectionView>
+            <Grid Padding="10"/>
+            <Button Text="種目追加" HorizontalOptions="CenterAndExpand" 
+                    Command="{Binding NavigationTrainingMasterCommand}" WidthRequest="150" />
+            <Grid Padding="10" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
