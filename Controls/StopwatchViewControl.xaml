@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Controls.StopwatchViewControl">
+    <Frame Padding="5,0,5,0">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label x:Name="lblTimer" Text="00:00:00" Grid.Row="0" Grid.ColumnSpan="2" FontSize="24" Padding="0" />
+        <Button x:Name="btnClear" Text="Clear" HorizontalOptions="End" Grid.Row="0" Grid.Column="1" Padding="0" HeightRequest="20" WidthRequest="30" FontSize="10" Clicked="btnReset_Click" />
+        <Button x:Name="btnStart" Text="Start" HorizontalOptions="End" Grid.Row="1" Grid.Column="0" Padding="0" WidthRequest="50" HeightRequest="25" FontSize="10" Clicked="btnStart_Click" />
+        <Button x:Name="btnStop" Text="Stop" HorizontalOptions="End" Grid.Row="1" Grid.Column="1"  Padding="0" WidthRequest="50" HeightRequest="25" FontSize="10" Clicked="btnStop_Click"/>
+    </Grid>
+    </Frame>
+</ContentView>

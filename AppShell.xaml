@@ -5,10 +5,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TrainingApp"
     xmlns:views="clr-namespace:TrainingApp.Views"
+    xmlns:cl="clr-namespace:TrainingApp.Controls"
     Shell.FlyoutBehavior="Flyout"
     Shell.BackgroundColor="LightBlue"
     Title="TrainingApp">
-
+    <Shell.TitleView>
+        <Grid x:Name="gridHeader">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="140"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="pageTitle" HorizontalOptions="Start" FontSize="18" Grid.Column="0" VerticalOptions="Center"/>
+        </Grid>
+    </Shell.TitleView>
+    
     <FlyoutItem Title="MainManu" Route="MainManu">
         <!--<ShellContent Title="Home" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" Shell.BackgroundColor="LightBlue" />-->
         <ShellContent Title="Home" ContentTemplate="{DataTemplate views:TrainingDateTimeSelectView}" Route="MainPage" Shell.BackgroundColor="LightBlue" />

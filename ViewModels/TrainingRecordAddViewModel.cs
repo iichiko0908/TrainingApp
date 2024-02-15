@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -58,7 +59,13 @@ namespace TrainingApp.ViewModels
                     execute: (object? parameter) =>
                     {
                         // 空白行を追加する。
-                        this.TrainingRecordListCollection.Add(new TrainingRecordList() { SetNumber = this.TrainingRecordListCollection.Count + 1 });
+                        this.TrainingRecordListCollection.Add(new TrainingRecordList() 
+                        { 
+                            SetNumber = this.TrainingRecordListCollection.Count + 1,
+                            Weight = this.TrainingRecordListCollection.Last().Weight
+                        });
+                        // トレーニング記録登録・更新
+                        InsertUpdateDeleteTrainingRecordList();
                     },
                     canExecute: (object? parameter) =>
                     {
@@ -109,7 +116,7 @@ namespace TrainingApp.ViewModels
                 return new Command(() =>
                 {
                     // トレーニング記録登録・更新
-                    InsertUpdateTrainingRecordList();
+                    InsertUpdateDeleteTrainingRecordList();
 
                     Dictionary<string, object> parameters = new Dictionary<string, object>();
                     parameters.Add("DateTime", this.TrainingDateTimeSelected);
@@ -130,7 +137,7 @@ namespace TrainingApp.ViewModels
                     (object? parameter) =>
                     {
                         // トレーニング記録登録・更新
-                        InsertUpdateTrainingRecordList();
+                        InsertUpdateDeleteTrainingRecordList();
                         Application.Current.MainPage.DisplayAlert("トレーニング記録", "登録完了しました", "閉じる");
                     });
             }
@@ -208,9 +215,9 @@ namespace TrainingApp.ViewModels
             }
         }
         /// <summary>
-        /// トレーニング記録登録・更新
+        /// トレーニング記録登録・更新・削除
         /// </summary>
-        private void InsertUpdateTrainingRecordList()
+        private void InsertUpdateDeleteTrainingRecordList()
         {
             // ***********************
             // DBに登録する

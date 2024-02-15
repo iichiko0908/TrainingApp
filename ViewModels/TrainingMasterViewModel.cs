@@ -44,6 +44,7 @@ namespace TrainingApp.ViewModels
                     TrainingMaster trainingMaster = (TrainingMaster)parameter;
                     Dictionary<string, object> parameters = new Dictionary<string, object>();
                     parameters.Add("TrainingMasterId", trainingMaster.Id);
+                    parameters.Add("DateTime", this.TrainingDateTimeSelected);
                     // トレーニングマスタのＩＤを引数に登録画面に遷移
                     Shell.Current.GoToAsync(nameof(TrainingMasterAddView), parameters);
                 },

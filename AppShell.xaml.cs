@@ -14,6 +14,12 @@ namespace TrainingApp
             Routing.RegisterRoute(nameof(TrainingMasterAddView), typeof(TrainingMasterAddView));
             Routing.RegisterRoute(nameof(TrainingRecordAddView), typeof(TrainingRecordAddView));
 
+            this.gridHeader.Add(new TrainingApp.Controls.StopwatchViewControl(), 1);
+        }
+        protected override void OnNavigated(ShellNavigatedEventArgs args)
+        {
+            base.OnNavigated(args);
+            pageTitle.Text = Current.CurrentPage.Title;
         }
     }
 }

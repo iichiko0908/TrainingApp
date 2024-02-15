@@ -16,6 +16,11 @@ namespace TrainingApp.ViewModels
     class TrainingMasterAddViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         /// <summary>
+        /// 選択した日付
+        /// </summary>
+        public DateTime TrainingDateTimeSelected { get; set; }
+
+        /// <summary>
         /// 登録コマンド
         /// </summary>
         public ICommand CreateDBTrainingMasterCommand { get; set; }
@@ -28,8 +33,10 @@ namespace TrainingApp.ViewModels
             {
                 return new Command(() =>
                 {
+                    Dictionary<string, object> parameters = new Dictionary<string, object>();
+                    parameters.Add("DateTime", this.TrainingDateTimeSelected);
                     // トレーニング一覧画面に遷移する
-                    Shell.Current.GoToAsync(nameof(TrainingMasterView));
+                    Shell.Current.GoToAsync(nameof(TrainingMasterView), parameters);
                 });
             }
         }
@@ -121,6 +128,8 @@ namespace TrainingApp.ViewModels
         /// <exception cref="NotImplementedException"></exception>
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
+            // 選択した日付を受け取り
+            this.TrainingDateTimeSelected = DateTime.Parse(query["DateTime"].ToString());
             object trainingMasterId = null;
             if (query.TryGetValue("TrainingMasterId", out trainingMasterId))
             {

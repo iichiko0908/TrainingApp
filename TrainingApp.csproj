@@ -84,7 +84,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\TrainingListCollectionViewControl.xaml">
+	  <MauiXaml Update="Controls\StopwatchViewControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SampleDataBaseView.xaml">

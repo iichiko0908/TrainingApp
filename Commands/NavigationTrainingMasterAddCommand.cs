@@ -50,8 +50,10 @@ namespace TrainingApp.Commands
         /// <exception cref="NotImplementedException"></exception>
         public void Execute(object? parameter)
         {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("DateTime", this.TrainingMasterViewModel.TrainingDateTimeSelected);
             // トレーニングマスタ登録画面に遷移
-            Shell.Current.GoToAsync(nameof(TrainingMasterAddView));
+            Shell.Current.GoToAsync(nameof(TrainingMasterAddView), parameters);
         }
     }
 }
