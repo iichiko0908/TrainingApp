@@ -7,6 +7,7 @@
     <ContentPage.BindingContext>
         <vm:TrainingDateTimeSelectViewModel />
     </ContentPage.BindingContext>
+
     <VerticalStackLayout>
         <Label Text="日付を選択" HorizontalOptions="Center" Style="{StaticResource Headline}" />
         <DatePicker Format="yyyy/MM/dd(ddd)" Date="{Binding TraningDateTime}" />

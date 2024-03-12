@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TrainingApp.Views.TrainingRecordGraphView"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:vm="clr-namespace:TrainingApp.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="TrainingRecordGraphView">
+    <ContentPage.BindingContext>
+        <vm:TrainingRecordGraphViewModel />
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Picker Grid.Column="0" Grid.Row="0" Title="集計方法を選択してください" SelectedItem="{Binding AggregateType}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>MAX重量回数</x:String>
+                    <x:String>総平均</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+            <Picker.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding ChangePickerCommand}" CommandParameter="{Binding Source={x:Reference picEventName}, Path=SelectedItem}"/>
+            </Picker.Behaviors>
+            <Picker.SelectedIndex>0</Picker.SelectedIndex>
+        </Picker>
+        <Picker Grid.Column="1" Grid.Row="0" Title="日付を選択してください" SelectedItem="{Binding DateType}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>1日単位</x:String>
+                    <x:String>1か月単位</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+            <Picker.SelectedIndex>0</Picker.SelectedIndex>
+        </Picker>
+        <Picker x:Name="picEventName" Grid.ColumnSpan="2" Grid.Row="1" Title="部位" ItemsSource="{Binding TrainingMasterList}" ItemDisplayBinding="{Binding EventName}">
+            <Picker.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding TrainingRecordGraphCommand}" CommandParameter="{Binding Source={x:Reference picEventName}, Path=SelectedItem}"/>
+            </Picker.Behaviors>
+        </Picker>
+        <lvc:CartesianChart Grid.ColumnSpan="2" Grid.Row="2" Series="{Binding Series}" Title="{Binding Title}" XAxes="{Binding XAxes }" />
+    </Grid>
+</ContentPage>

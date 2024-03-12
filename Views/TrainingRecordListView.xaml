@@ -62,12 +62,25 @@
                 <CollectionView.GroupFooterTemplate>
                     <DataTemplate>
                         <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="30" />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Button Text="記録追加" HorizontalOptions="End"  Padding="10,0,10,0"
+                            <Button Text="記録追加" HorizontalOptions="End"  Padding="10,0,10,0" Grid.ColumnSpan="5" Grid.Row="1"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordListViewModel}}, Path=NavigationTrainingRecordAddViewCommand}" 
                                     CommandParameter="{Binding TrainingMasterId}" />
+                            <Label Grid.Row="0" Grid.Column="0" Text="合計" HorizontalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding SumWeight}" HorizontalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="2" Text="kg"/>
+                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding SumNumberOfTimes}" HorizontalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="4" Text="回"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.GroupFooterTemplate>

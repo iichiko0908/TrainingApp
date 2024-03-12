@@ -13,6 +13,7 @@ using TrainingApp.Models.DB;
 using TrainingApp.Models.Group;
 using TrainingApp.Views;
 
+
 namespace TrainingApp.ViewModels
 {
     internal class TrainingRecordListViewModel : INotifyPropertyChanged, IQueryAttributable
@@ -38,7 +39,7 @@ namespace TrainingApp.ViewModels
                 return new Command(
                     execute: (object? parameter) =>
                     {
-                        Shell.Current.GoToAsync(nameof(TrainingDateTimeSelectView));
+                        Shell.Current.GoToAsync("//MainManu/TrainingDateTimeSelectView");
                     });
             }
         }

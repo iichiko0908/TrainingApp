@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +25,15 @@ namespace TrainingApp.ViewModels
         /// トレーニング記録リスト
         /// </summary>
         public ObservableCollection<TrainingRecordList> TrainingRecordListCollection {  get; set; }
+        /// <summary>
+        /// 前回のトレーニング記録リスト
+        /// </summary>
+        public ObservableCollection<TrainingRecordList> PreTrainingRecordListCollection { get; set; }
+        /// <summary>
+        /// 前回のトレーニング記録の日付
+        /// </summary>
+        public string PreCreated { get; set; }
+
         /// <summary>
         /// トレーニングマスタ
         /// </summary>
@@ -126,22 +136,7 @@ namespace TrainingApp.ViewModels
             }
         }
 
-        /// <summary>
-        /// 登録ボタンコマンド
-        /// </summary>
-        public ICommand InsertUpdateTrainingRecordListCommand
-        {
-            get
-            {
-                return new Command(
-                    (object? parameter) =>
-                    {
-                        // トレーニング記録登録・更新
-                        InsertUpdateDeleteTrainingRecordList();
-                        Application.Current.MainPage.DisplayAlert("トレーニング記録", "登録完了しました", "閉じる");
-                    });
-            }
-        }
+        
 
         /// <summary>
         /// 変更
@@ -164,6 +159,7 @@ namespace TrainingApp.ViewModels
         {
             this.TrainingRecordAddModel = new TrainingRecordAddModel();
             this.TrainingRecordListCollection = new ObservableCollection<TrainingRecordList>();
+            this.PreTrainingRecordListCollection = new ObservableCollection<TrainingRecordList>();
 
             this.RemoveTrainingRecordLists = new List<TrainingRecordList>();
         }
@@ -206,6 +202,20 @@ namespace TrainingApp.ViewModels
                             TrainingRecordListCollection.Add(recored);
                         }
                     }
+
+
+                    // 前回のトレーニング記録を設定する
+                    // 選択した日付より過去のトレーニング記録を取得
+                    trainingRecordList =
+                        context.Connection.Table<TrainingRecordList>().Where(
+                            t => t.TrainingMasterId == (int)trainingMasterId &&
+                            t.Created < this.TrainingDateTimeSelected).ToObservableCollection();
+                    // トレーニング記録をグループ化して最近の日付のグループを取得
+                    foreach (TrainingRecordList record in trainingRecordList.GroupBy(t => t.Created).OrderByDescending(t => t.Key).First())
+                    {
+                        this.PreTrainingRecordListCollection.Add(record);
+                    }
+                    this.PreCreated = this.PreTrainingRecordListCollection.First().Created.ToString("yyyy/MM/dd");
                 }
                 
             }

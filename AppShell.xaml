@@ -19,18 +19,17 @@
         </Grid>
     </Shell.TitleView>
     
-    <FlyoutItem Title="MainManu" Route="MainManu">
-        <!--<ShellContent Title="Home" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" Shell.BackgroundColor="LightBlue" />-->
-        <ShellContent Title="Home" ContentTemplate="{DataTemplate views:TrainingDateTimeSelectView}" Route="MainPage" Shell.BackgroundColor="LightBlue" />
+    <FlyoutItem Title="トレーニング記録" Route="MainManu">
+        <ShellContent Title="Home" ContentTemplate="{DataTemplate views:TrainingDateTimeSelectView}" Route="TrainingDateTimeSelectView" Shell.BackgroundColor="LightBlue" />
     </FlyoutItem>
-    <FlyoutItem Title="SampleManu" Route="SampleManu">
+    <FlyoutItem Title="トレーニンググラフ" Route="GraphManu">
         <Tab Title="Tab" Route="MainTab">
-            <ShellContent Title="Sample" ContentTemplate="{DataTemplate views:SampleView}" Route="SampleView" />
-            <ShellContent Title="SampleDatabase" ContentTemplate="{DataTemplate views:SampleDataBaseView}" Route="SampleDatabaseView" />
+            <ShellContent Title="トレーニンググラフ" ContentTemplate="{DataTemplate views:TrainingRecordGraphView}" Route="GraphManu" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="トレーニング選択" Route="TraningCalendarView">
-        <ShellContent Title="TrainingCalendarView" ContentTemplate="{DataTemplate views:TrainingDateTimeSelectView}" Route="TrainingCalendarView" />
+    <FlyoutItem Title="デモ用" Route="DemoManu">
+        <Tab Title="Tab" Route="MainTab">
+            <ShellContent Title="デモ登録" ContentTemplate="{DataTemplate views:TrainingDBRegistDemoView}" Route="DemoManu" />
+        </Tab>
     </FlyoutItem>
-
 </Shell>
