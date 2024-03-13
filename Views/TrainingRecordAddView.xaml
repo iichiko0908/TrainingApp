@@ -47,7 +47,7 @@
                                 <ColumnDefinition Width="150"/>
                                 <ColumnDefinition Width="30"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding SetNumber}"/>
+                            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding SetNumber}" VerticalOptions="Center"/>
 
                             <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Weight, TargetNullValue=''}" Keyboard="Numeric">
                                 <!--<Entry.Behaviors>
@@ -74,6 +74,8 @@
             </CollectionView.FooterTemplate>
         </CollectionView>
         <Grid Padding="10" />
+        
+        
         <!-- 前回の記録 -->
         <CollectionView Header="{Binding TrainingMaster}" ItemsSource="{Binding PreTrainingRecordListCollection}">
             <CollectionView.HeaderTemplate>
@@ -98,24 +100,26 @@
             </CollectionView.HeaderTemplate>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="30" />
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="30" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding SetNumber}" />
-                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Weight}" />
-                        <Label Grid.Row="0" Grid.Column="2" Text="kg" />
-                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes}" />
-                        <Label Grid.Row="0" Grid.Column="4" Text="回" />
-                    </Grid>
-                </DataTemplate>
+                    <Frame CornerRadius="0" Padding="0,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding SetNumber}" VerticalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Weight}" VerticalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="2" Text="kg" VerticalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes}" VerticalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="4" Text="回" VerticalOptions="Center" />
+                        </Grid>
+                    </Frame>
+                    </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
