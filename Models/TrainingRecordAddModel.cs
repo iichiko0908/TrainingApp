@@ -10,6 +10,13 @@ namespace TrainingApp.Models
 {
     internal class TrainingRecordAddModel
     {
-        
+        /// <summary>
+        /// 重さ合計
+        /// </summary>
+        public double SumWeight { get; set; }
+        /// <summary>
+        /// 回数合計
+        /// </summary>
+        public int SumNumberOfTimes {  get; set; }
     }
 }

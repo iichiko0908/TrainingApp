@@ -18,17 +18,34 @@ namespace TrainingApp.ViewModels
     internal class TrainingRecordAddViewModel : INotifyPropertyChanged, IQueryAttributable
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private TrainingRecordAddModel TrainingRecordAddModel { get; set; }
-        /// <summary>
         /// トレーニング記録リスト
         /// </summary>
         public ObservableCollection<TrainingRecordList> TrainingRecordListCollection {  get; set; }
         /// <summary>
+        /// トレーニング記録合計
+        /// </summary>
+        private TrainingRecordAddModel _trainingRecordAddModel { get; set; }
+        public TrainingRecordAddModel TrainingRecordAddModel 
+        {
+            get
+            {
+                return _trainingRecordAddModel;
+            }
+            set
+            {
+                _trainingRecordAddModel = value;
+                NotifyPropertyChanged();
+            }
+
+        }
+        /// <summary>
         /// 前回のトレーニング記録リスト
         /// </summary>
         public ObservableCollection<TrainingRecordList> PreTrainingRecordListCollection { get; set; }
+        /// <summary>
+        /// トレーニング記録過去合計
+        /// </summary>
+        public TrainingRecordAddModel PreTrainingRecordAddModel { get; set; }
         /// <summary>
         /// 前回のトレーニング記録の日付
         /// </summary>
@@ -68,6 +85,8 @@ namespace TrainingApp.ViewModels
                 return new Command(
                     execute: (object? parameter) =>
                     {
+                        // 合計値設定
+                        SetSumTrainingRecordList();
                         // 空白行を追加する。
                         this.TrainingRecordListCollection.Add(new TrainingRecordList() 
                         { 
@@ -76,6 +95,7 @@ namespace TrainingApp.ViewModels
                         });
                         // トレーニング記録登録・更新
                         InsertUpdateDeleteTrainingRecordList();
+
                     },
                     canExecute: (object? parameter) =>
                     {
@@ -158,6 +178,7 @@ namespace TrainingApp.ViewModels
         public TrainingRecordAddViewModel()
         {
             this.TrainingRecordAddModel = new TrainingRecordAddModel();
+            this.PreTrainingRecordAddModel = new TrainingRecordAddModel();
             this.TrainingRecordListCollection = new ObservableCollection<TrainingRecordList>();
             this.PreTrainingRecordListCollection = new ObservableCollection<TrainingRecordList>();
 
@@ -216,6 +237,9 @@ namespace TrainingApp.ViewModels
                         this.PreTrainingRecordListCollection.Add(record);
                     }
                     this.PreCreated = this.PreTrainingRecordListCollection.First().Created.ToString("yyyy/MM/dd");
+
+                    // 合計値設定
+                    SetSumTrainingRecordList();
                 }
                 
             }
@@ -271,6 +295,21 @@ namespace TrainingApp.ViewModels
                 // コミット
                 context.Commit();
             }
+        }
+
+        private void SetSumTrainingRecordList()
+        {
+            this.TrainingRecordAddModel = new TrainingRecordAddModel();
+            // 現在、重さ合計
+            this.TrainingRecordAddModel.SumWeight = this.TrainingRecordListCollection.Sum(t => t.Weight ?? 0);
+            // 現在、回数合計
+            this.TrainingRecordAddModel.SumNumberOfTimes = this.TrainingRecordListCollection.Sum(t => t.NumberOfTimes ?? 0);
+
+            // 過去、重さ合計
+            this.PreTrainingRecordAddModel.SumWeight = this.PreTrainingRecordListCollection.Sum(t => t.Weight ?? 0);
+            // 過去、回数合計
+            this.PreTrainingRecordAddModel.SumNumberOfTimes = this.PreTrainingRecordListCollection.Sum(t => t.NumberOfTimes ?? 0);
+
         }
     }
 }

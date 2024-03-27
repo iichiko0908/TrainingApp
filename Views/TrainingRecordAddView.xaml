@@ -13,115 +13,148 @@
         <BackButtonBehavior Command="{Binding NavigationTrainingListViewCommand}" TextOverride="＜" />
     </Shell.BackButtonBehavior>
     <ScrollView>
-    <VerticalStackLayout>
-        <CollectionView Header="{Binding TrainingMaster}" Footer="{Binding .}" ItemsSource="{Binding TrainingRecordListCollection}">
-            <CollectionView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid BackgroundColor="LightGray">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="{Binding EventName}" />
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.HeaderTemplate>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <SwipeView>
-                        <SwipeView.RightItems SwipeBehaviorOnInvoked="Close">
-                            <SwipeItem Text="削除" BackgroundColor="Red" 
-                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}, Path=RowDeleteTrainingRecordListCommand}" 
-                                       CommandParameter="{Binding .}"/>
-                        </SwipeView.RightItems>
-                        <Grid>
+        <VerticalStackLayout>
+            <CollectionView Header="{Binding TrainingMaster}" Footer="{Binding TrainingRecordAddModel}" ItemsSource="{Binding TrainingRecordListCollection}">
+                <CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="LightGray">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="30" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding SetNumber}" VerticalOptions="Center"/>
-
-                            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Weight, TargetNullValue=''}" Keyboard="Numeric">
-                                <!--<Entry.Behaviors>
-                                    <toolkit:EventToCommandBehavior EventName="TextChanged" Command="{Binding Source={x:Reference this}, Path=BindingContext.UpdateEntryWeightTrainingRecordList}" CommandParameter="{Binding .}" />
-                                </Entry.Behaviors>-->
-                            </Entry>
-                            <Label Grid.Row="0" Grid.Column="2" Text="kg"/>
-                            <Entry Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes, TargetNullValue=''}" Keyboard="Numeric"/>
-                            <Label Grid.Row="0" Grid.Column="4" Text="回"/>
+                            <Label Text="{Binding EventName}" />
                         </Grid>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.FooterTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Button Text="行追加" HorizontalOptions="End" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}, Path=RowAddTrainingRecordListCommand }"  />
-                        
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.FooterTemplate>
-        </CollectionView>
-        <Grid Padding="10" />
-        
-        
-        <!-- 前回の記録 -->
-        <CollectionView Header="{Binding TrainingMaster}" ItemsSource="{Binding PreTrainingRecordListCollection}">
-            <CollectionView.HeaderTemplate>
-                <DataTemplate>
-                    <Grid BackgroundColor="LightGray">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label>
-                            <Label.Text>
-                                <MultiBinding StringFormat="{}{0} ({1})">
-                                    <Binding Path="EventName"/>
-                                    <Binding Source="{RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}" Path="PreCreated" />
-                                </MultiBinding>
-                            </Label.Text>
-                        </Label>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.HeaderTemplate>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame CornerRadius="0" Padding="0,0,0,0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="150" />
-                                <ColumnDefinition Width="30" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding SetNumber}" VerticalOptions="Center" />
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Weight}" VerticalOptions="Center" />
-                            <Label Grid.Row="0" Grid.Column="2" Text="kg" VerticalOptions="Center" />
-                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes}" VerticalOptions="Center" />
-                            <Label Grid.Row="0" Grid.Column="4" Text="回" VerticalOptions="Center" />
-                        </Grid>
-                    </Frame>
                     </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+                </CollectionView.HeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems SwipeBehaviorOnInvoked="Close">
+                                <SwipeItem Text="削除" BackgroundColor="Red" 
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}, Path=RowDeleteTrainingRecordListCommand}" 
+                                           CommandParameter="{Binding .}"/>
+                            </SwipeView.RightItems>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0"  Text="{Binding SetNumber}" VerticalOptions="Center"/>
+
+                                <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Weight, TargetNullValue=''}" Keyboard="Numeric">
+                                    <!--<Entry.Behaviors>
+                                        <toolkit:EventToCommandBehavior EventName="TextChanged" Command="{Binding Source={x:Reference this}, Path=BindingContext.UpdateEntryWeightTrainingRecordList}" CommandParameter="{Binding .}" />
+                                    </Entry.Behaviors>-->
+                                </Entry>
+                                <Label Grid.Row="0" Grid.Column="2" Text="kg"/>
+                                <Entry Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes, TargetNullValue=''}" Keyboard="Numeric"/>
+                                <Label Grid.Row="0" Grid.Column="4" Text="回"/>
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.FooterTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Text="合計" HorizontalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding SumWeight}" HorizontalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="2" Text="kg"/>
+                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding SumNumberOfTimes}" HorizontalOptions="Center" />
+                            <Label Grid.Row="0" Grid.Column="4" Text="回"/>
+                            <Button Grid.ColumnSpan="5" Grid.Row="1" Text="行追加" HorizontalOptions="End" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}, Path=RowAddTrainingRecordListCommand }"  />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.FooterTemplate>
+            </CollectionView>
+            <Grid Padding="10" />
+
+
+            <!-- 前回の記録 -->
+            <CollectionView Header="{Binding TrainingMaster}" Footer="{Binding PreTrainingRecordAddModel}" ItemsSource="{Binding PreTrainingRecordListCollection}">
+                <CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="LightGray">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label>
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} ({1})">
+                                        <Binding Path="EventName"/>
+                                        <Binding Source="{RelativeSource AncestorType={x:Type vm:TrainingRecordAddViewModel}}" Path="PreCreated" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="0" Padding="0,0,0,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding SetNumber}" VerticalOptions="Center" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Weight}" VerticalOptions="Center" />
+                                <Label Grid.Row="0" Grid.Column="2" Text="kg" VerticalOptions="Center" />
+                                <Label Grid.Row="0" Grid.Column="3" Text="{Binding NumberOfTimes}" VerticalOptions="Center" />
+                                <Label Grid.Row="0" Grid.Column="4" Text="回" VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.FooterTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Text="合計" HorizontalOptions="Center" />
+                            <Label Grid.Column="1" Text="{Binding SumWeight}" HorizontalOptions="Center" />
+                            <Label Grid.Column="2" Text="kg"/>
+                            <Label Grid.Column="3" Text="{Binding SumNumberOfTimes}" HorizontalOptions="Center" />
+                            <Label Grid.Column="4" Text="回"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.FooterTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
